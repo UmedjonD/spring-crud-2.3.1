@@ -6,22 +6,20 @@ import tj.davlatov.springmvc.models.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.transaction.Transactional;
 import java.util.List;
 
 
 @Component
 public class UserDaoImpl implements UserDao{
 
-    private List<User> userList = null;
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<User> index() {
+    public List<User> getUsers() {
         Query query = entityManager.createQuery("From User");
-        return userList = query.getResultList();
+        return query.getResultList();
     }
 
     @Override
@@ -36,8 +34,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public void update(int id, User updateUser) {
-        User beUpdate = entityManager.find(User.class, id);
+    public void update(User updateUser) {
+        User beUpdate = entityManager.merge(updateUser);
         beUpdate.setName(updateUser.getName());
         beUpdate.setLastname(updateUser.getLastname());
         beUpdate.setEmail(updateUser.getEmail());

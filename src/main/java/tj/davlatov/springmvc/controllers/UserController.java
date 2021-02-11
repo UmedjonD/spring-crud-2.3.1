@@ -17,22 +17,22 @@ import javax.validation.Valid;
 @RequestMapping("/page")
 public class UserController {
 
-    private final UserService userDAO;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userDAO) {
-        this.userDAO = userDAO;
+        this.userService = userDAO;
     }
 
     @GetMapping()
     public String index(Model model) {
-        model.addAttribute("users", userDAO.index());
+        model.addAttribute("users", userService.index());
         return "page/index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userDAO.show(id));
+        model.addAttribute("user", userService.show(id));
         return "page/show";
     }
 
@@ -43,26 +43,26 @@ public class UserController {
 
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
-        userDAO.save(user);
+        userService.save(user);
         return "redirect:/page";
     }
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userDAO.show(id));
+        model.addAttribute("user", userService.show(id));
         return "page/edit";
     }
 
     @PatchMapping("/{id}")
     public String update(@ModelAttribute("user") User user, @PathVariable("id") int id) {
-        userDAO.update(id, user);
+        userService.update(id, user);
         return "redirect:/page";
     }
 
 
     @DeleteMapping("/{id}")
     public  String delete(@PathVariable("id") int id) {
-        userDAO.delete(id);
+        userService.delete(id);
         return "redirect:/page";
     }
 

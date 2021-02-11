@@ -3,6 +3,7 @@ package tj.davlatov.springmvc.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import tj.davlatov.springmvc.dao.UserDao;
 import tj.davlatov.springmvc.dao.UserDaoImpl;
 import tj.davlatov.springmvc.models.User;
 
@@ -13,12 +14,16 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private UserDaoImpl userDao;
+
+    @Autowired
+    public UserServiceImpl(UserDaoImpl userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public List<User> index() {
-        return userDao.index();
+        return userDao.getUsers();
     }
 
     @Override
@@ -33,7 +38,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void update(int id, User updateUser) {
-        userDao.update(id, updateUser);
+        userDao.update(updateUser);
     }
 
     @Override
