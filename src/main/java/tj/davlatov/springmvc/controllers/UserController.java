@@ -25,14 +25,14 @@ public class UserController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("users", userService.index());
+    public String getUsers(Model model) {
+        model.addAttribute("users", userService.getUsers());
         return "page/index";
     }
 
     @GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userService.show(id));
+    public String find(@PathVariable("id") int id, Model model) {
+        model.addAttribute("user", userService.find(id));
         return "page/show";
     }
 
@@ -49,7 +49,7 @@ public class UserController {
 
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userService.show(id));
+        model.addAttribute("user", userService.find(id));
         return "page/edit";
     }
 

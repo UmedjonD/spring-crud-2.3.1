@@ -23,7 +23,7 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public User show(int id) {
+    public User find(int id) {
 //        return userList.stream().filter(user -> user.getId() == id).findAny().orElse(null);
         return entityManager.find(User.class, id);
     }
@@ -35,10 +35,7 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public void update(User updateUser) {
-        User beUpdate = entityManager.merge(updateUser);
-        beUpdate.setName(updateUser.getName());
-        beUpdate.setLastname(updateUser.getLastname());
-        beUpdate.setEmail(updateUser.getEmail());
+        entityManager.merge(updateUser);
     }
 
     @Override

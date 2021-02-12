@@ -22,13 +22,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> index() {
+    public List<User> getUsers() {
         return userDao.getUsers();
     }
 
     @Override
-    public User show(int id) {
-        return userDao.show(id);
+    public User find(int id) {
+        return userDao.find(id);
     }
 
     @Override
